@@ -1,15 +1,20 @@
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.uic import loadUi
 
 
 class InfoWindow(QtWidgets.QFrame):
-    def __init__(self):
+    def __init__(self, v):
+        super(InfoWindow, self).__init__()
+        loadUi("ui/info.ui", self)
         self.widget = 0
-
-    def clicked_method(self, v):
         self.v = v
+        self.clicked_method()
+
+    def clicked_method(self):
         self.widget = self.v.getWidget()
-        self.finish.clicked.connect(lambda: InfoWindow.print_result(self))
-        self.cancel.clicked.connect(lambda: InfoWindow.give_up(self))
+        self.finish.clicked.connect(self.print_result)
+        self.cancel.clicked.connect(self.give_up)
 
     def print_result(self):
         self.widget = self.v.getWidget()

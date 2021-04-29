@@ -1,4 +1,5 @@
-class variables():
+
+class Variables:
     def __init__(self):
         self.ta = 0
         self.fa = 0
