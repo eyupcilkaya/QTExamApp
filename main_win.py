@@ -1,17 +1,23 @@
 import os
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.uic import loadUi
 
 
-class MainWindow():
-    def __init__(self):
+class MainWindow(QMainWindow):
+    def __init__(self, v):
+        super(MainWindow, self).__init__()
+        loadUi("ui/main.ui", self)
         self.widget = 0
-
-    def click_method(self, v):
-        if (not os.path.exists("question.xlsx")):
-            self.startexam.setEnabled(False)
         self.v = v
+        self.click_method()
+
+    def click_method(self):
+        if not os.path.exists("question.xlsx"):
+            self.startexam.setEnabled(False)
+
         self.widget = self.v.getWidget()
-        self.startexam.clicked.connect(lambda: MainWindow.open_quest(self))
-        self.loadfile.clicked.connect(lambda: MainWindow.open_load(self))
+        self.startexam.clicked.connect(self.open_quest)
+        self.loadfile.clicked.connect(self.open_load)
 
     def open_quest(self):
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
